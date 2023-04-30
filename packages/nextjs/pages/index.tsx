@@ -34,6 +34,7 @@ const Home: NextPage = () => {
   const [diceRolled, setDiceRolled] = useState<boolean>(false);
   const [diceRollImage, setDiceRollImage] = useState<string>("");
   const [showEthValue, setShowEthValue] = useState<boolean>(true);
+  const [rigged, setRigged] = useState<boolean>(false);
 ;
 
   // // Get access to the deployed contract object
@@ -44,7 +45,7 @@ const Home: NextPage = () => {
   
   // Call the rollTheDice function in the DiceGame smart contract.
   const {
-    // writeAsync: rollWrite,
+    writeAsync: rollWrite,
     isSuccess: rollSuccessful,
     isError: rollError,
     isMining: isRollMinning,
@@ -153,7 +154,21 @@ const Home: NextPage = () => {
     setDiceRollImage("ROLL");
 
     try {
-      // await rollWrite();
+      await rollWrite();
+     } catch (err) {
+      // Handle the error.
+      console.error(err);
+      setDiceRolled(false);
+      setDiceRollImage("");
+    }
+  };
+  // The butten calls this function to initiate the rigged roll.
+  const rollRiggedDice = async () => {
+    setRigged(true);
+    setDiceRolled(true);
+    setDiceRollImage("ROLL");
+
+    try {
       await riggedRollWrite();
       if (!riggedRollError || riggedRollSuccessful) {
         setDiceRolled(false);
@@ -167,6 +182,7 @@ const Home: NextPage = () => {
       setDiceRolled(false);
       setDiceRollImage("");
     }
+    setRigged(false);
   };
 
   // Dice image manipulation.
@@ -207,11 +223,22 @@ const Home: NextPage = () => {
                   ))}
               </ul>
             </div>
-            <div className="flex flex-col justify-center w-full lg:min-w-[25%] min-h-[300px] bg-base-100 px-7 py-7 text-center items-center max-w-xs rounded-3xl">
-              <button disabled={diceRolled} className="btn rounded-lg" onClick={rollTheDice}>
-                Roll the dice!
-              </button>
-              <div className="my-4 transition ease-in-out delay-150 duration-200">{diceRollImg}</div>
+
+            <div className="flex flex-col justify-center h-auto space-y-3">
+              <div className="flex flex-col justify-center w-full lg:min-w-[25%] min-h-[300px] bg-base-100 px-7 py-7 text-center items-center max-w-xs rounded-3xl">
+                <button disabled={diceRolled} className="btn rounded-lg" onClick={rollTheDice}>
+                  Roll the dice!
+                </button>
+                <div className="my-4 transition ease-in-out delay-150 duration-200">{!rigged && diceRollImg}</div>
+              </div>
+
+              <div className="flex flex-col justify-center w-full lg:min-w-[25%] min-h-[300px] bg-base-100 px-7 py-7 text-center items-center max-w-xs rounded-3xl">
+                <button disabled={diceRolled} className="btn rounded-lg" onClick={rollRiggedDice}>
+                Roll Rigged dice!
+                </button>
+                <div className="my-4 transition ease-in-out delay-150 duration-200">{rigged && diceRollImg}</div>
+              </div>
+
             </div>
             <div className="flex flex-col flex-grow order-last lg:-order-none lg:min-w-[25%] w-full min-h-[300px] bg-base-100 px-4 py-2 text-center items-center max-w-xs rounded-3xl">
               <h2 className="text-lg tracking-widest uppercase font-bold mb-4">Winner Events</h2>

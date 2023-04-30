@@ -90,7 +90,7 @@ const contracts = {
           ],
         },
         RiggedRoll: {
-          address: "0xdB67FFc232F3B9dB1e817E9476673E25C393D3A9",
+          address: "0xfc586de765f89d6228667cB41bBf413FD34B8885",
           abi: [
             {
               inputs: [
