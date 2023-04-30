@@ -92,6 +92,8 @@ You have beaten the game, but where is your money?  Since the RiggedRoll contrac
 - [ ] Can you send value from the riggedRoll contract to your front end address?
 - [ ] Is anyone able to call the withdraw function?  What would be the downside to that?
 
+## You can also run  `yarn test` to test your solution!
+
 #### ⚔️ Side Quest
 
 - [ ] Lock the withdraw function so it can only be called by the owner.
@@ -114,7 +116,7 @@ You have beaten the game, but where is your money?  Since the RiggedRoll contrac
 
 🔬 Inspect the block explorer for the network you deployed to... make sure your contract is there.
 
-## You can also run  `yarn test` to test your solution!
+
 ---
 ### Checkpoint 6: 🚢 Ship it! 🚁
 
