@@ -141,7 +141,7 @@ const Home: NextPage = () => {
   let diceRollImg;
   if (diceRollImage) {
     diceRollImg = (
-      <Image className="rounded-xl" width={300} height={240} src={`/images/${diceRollImage}.png`} alt={"Dice Image"} />
+      <Image className="rounded-xl" width={300} height={240} src={`/images/${diceRollImage}.png`} alt={"Dice Image"} unoptimized />
     );
   }
 
