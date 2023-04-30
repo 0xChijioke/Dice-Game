@@ -114,6 +114,7 @@ You have beaten the game, but where is your money?  Since the RiggedRoll contrac
 
 🔬 Inspect the block explorer for the network you deployed to... make sure your contract is there.
 
+## You can also run  `yarn test` to test your solution!
 ---
 ### Checkpoint 6: 🚢 Ship it! 🚁
 
