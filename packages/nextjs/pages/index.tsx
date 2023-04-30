@@ -98,7 +98,7 @@ const Home: NextPage = () => {
   // A function to help toggle between ETH value and dollar value.
   function valueDisplay(value: BigNumber) {
     const displayValue = showEthValue
-      ? value && formatEther(value)
+      ? value && Number(formatEther(value)).toFixed(5)
       : (value && Number(formatEther(value)) * ETHPrice)?.toFixed(2) || "0";
 
     return displayValue;
@@ -119,7 +119,7 @@ const Home: NextPage = () => {
     contractName: "DiceGame",
     eventName: "Winner",
     listener: (winner, amount) => {
-      setWinners((prevWinners): Winners[] => [...prevWinners, { winner, amount: valueDisplay(amount) }]);
+      setWinners((prevWinners): Winners[] => [...prevWinners, { winner, amount: formatEther(amount) }]);
       // console.log(winner, amount);
     },
   });
@@ -191,8 +191,8 @@ const Home: NextPage = () => {
                     <li key={i} className="flex flex-row items-center py-2 tracking-widest text-sm">
                       <Address address={winner} />
                       &nbsp;Amt:&nbsp;
-                      <button className="flex flex-row w-full" onClick={() => setShowEthValue(prev => !prev)}>
-                        {showEthValue ? "⟠" : "💲"}&nbsp;{amount}
+                      <button className="flex flex-row w-full">
+                        { "⟠" }&nbsp;{Number(amount).toFixed(5)}
                       </button>
                     </li>
                   ))}
