@@ -144,6 +144,7 @@ export type UseScaffoldWriteConfig<
 > = {
   contractName: TContractName;
   value?: string;
+  gasLimit?: string;
 } & IsContractsFileMissing<
   Partial<UseContractWriteConfig> & { args?: unknown[] },
   {

@@ -98,9 +98,10 @@ You have beaten the game, but where is your money?  Since the RiggedRoll contrac
 
 > ⚠️ But wait, I am not the owner!  You will want to set your front end address as the owner in `01_deploy_riggedRoll.js`.  This will allow your front end address to call the withdraw function.
 
+
 ### Checkpoint 5: 💾 Deploy it! 🛰
 
-📡 Edit the `defaultNetwork` in `packages/hardhat/hardhat.config.ts`, as well as `targetNetwork` in `packages/nextjs/env.production`, to [your choice of public EVM networks](https://ethereum.org/en/developers/docs/networks/)
+📡 Edit the `defaultNetwork` in `packages/hardhat/hardhat.config.ts`, as well as `targetNetwork` in `packages/nextjs/scaffold.config.ts`, to [your choice of public EVM networks](https://ethereum.org/en/developers/docs/networks/)
 
 👩‍🚀 You will want to run `yarn account` to see if you have a **deployer address**.
 
@@ -125,9 +126,9 @@ You have beaten the game, but where is your money?  Since the RiggedRoll contrac
 
 ### Checkpoint 7: 📜 Contract Verification
 
-Update the `apikey` in `packages/hardhat/package.json`. You can get your key [here](https://etherscan.io/myapikey).
+Update the `apikey` in `packages/hardhat/.env`. You can get your key [here](https://etherscan.io/myapikey).
 
-> Now you are ready to run the `yarn verify --network your_network` command to verify your contracts on etherscan 🛰
+> Now you are ready to run the `yarn verify` command to verify your contracts on etherscan 🛰
 
 Copy the verified address for your RiggedRoll contract and enter that into the appropriate Etherscan testnet.
 

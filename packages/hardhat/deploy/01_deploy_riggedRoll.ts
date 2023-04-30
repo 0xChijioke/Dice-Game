@@ -1,6 +1,6 @@
 import { HardhatRuntimeEnvironment } from "hardhat/types";
 import { DeployFunction } from "hardhat-deploy/types";
-// import { ethers } from "hardhat";
+import { ethers } from "hardhat";
 
 /**
  * Deploys a contract named "YourContract" using the deployer account and
@@ -20,26 +20,24 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
     You can run the `yarn account` command to check your balance in every network.
   */
 
-  // The reason for all the commenting is that linting will always error if riggedRoll deploy script isnt fully implemented.
-  console.log(hre);
-  // Uncomment the below when working on riggedRoll.
-  // const { deployer } = await hre.getNamedAccounts();
-  // const { deploy } = hre.deployments;
+  
+  const { deployer } = await hre.getNamedAccounts();
+  const { deploy } = hre.deployments;
 
-  // const diceGame = await ethers.getContract("DiceGame", deployer);
+  const diceGame = await ethers.getContract("DiceGame", deployer);
 
-  // await deploy("RiggedRoll", {
-  //   from: deployer,
-  //   // Contract constructor arguments
-  //   args: [diceGame.address],
-  //   log: true,
-  //   autoMine: true,
-  // });
+  await deploy("RiggedRoll", {
+    from: deployer,
+    // Contract constructor arguments
+    args: [diceGame.address],
+    log: true,
+    autoMine: true,
+  });
 
   // Get the deployed contract
-  //const riggedRoll = await ethers.getContract("RiggedRoll", deployer);
+  await ethers.getContract("RiggedRoll", deployer);
 
-  //const ownershipTransaction = await riggedRoll.transferOwnership("** YOUR FRONTEND ADDRESS **");
+  // await riggedRoll.transferOwnership("0x38BCbf58a5ca3D315B6271cAf4cb89456aa9a8d4");
 };
 
 export default deployYourContract;

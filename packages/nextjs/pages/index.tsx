@@ -6,7 +6,8 @@ import { formatEther } from "ethers/lib/utils.js";
 import type { NextPage } from "next";
 import { Address } from "~~/components/scaffold-eth";
 import {
-  useEthPrice, // useScaffoldContract,
+  useEthPrice,
+  // useScaffoldContract,
   useScaffoldContractRead,
   useScaffoldContractWrite,
   useScaffoldEventSubscriber,
@@ -33,17 +34,17 @@ const Home: NextPage = () => {
   const [diceRolled, setDiceRolled] = useState<boolean>(false);
   const [diceRollImage, setDiceRollImage] = useState<string>("");
   const [showEthValue, setShowEthValue] = useState<boolean>(true);
-  // const [claiming, setClaiming] = useState<boolean>(false);
-
-  // const { address } = useAccount();
+;
 
   // // Get access to the deployed contract object
   // const { data: diceGame } = useScaffoldContract({ contractName: "DiceGame" });
-  // // console.log("diceGame: ", diceGame);
-
+  // console.log("diceGame: ", diceGame);
+  // const { data: riggedRoll } = useScaffoldContract({ contractName: "RiggedRoll" });
+  // console.log("riggedRoll: ", riggedRoll);
+  
   // Call the rollTheDice function in the DiceGame smart contract.
   const {
-    writeAsync,
+    // writeAsync: rollWrite,
     isSuccess: rollSuccessful,
     isError: rollError,
     isMining: isRollMinning,
@@ -52,7 +53,8 @@ const Home: NextPage = () => {
     functionName: "rollTheDice",
     value: ROLL_VALUE,
   });
-
+  
+  
   // Handle roll success.
   useEffect(() => {
     if (isRollMinning) {
@@ -74,16 +76,37 @@ const Home: NextPage = () => {
     }
     return () => clearTimeout(timeoutId);
   }, [rollError]);
-
+  
   // Call the riggedRoll function in the RiggedRoll smart contract.
-  // const { writeAsync: riggedRollWrite, isSuccess: riggedRollSuccessful, isError: riggedRollError, isMining: riddedRollMinning } = useScaffoldContractWrite({
-  //   contractName: "RiggedRoll",
-  //   functionName: "riggedRoll",
-  // });
-
+  const { writeAsync: riggedRollWrite, isSuccess: riggedRollSuccessful, isError: riggedRollError, isMining: riggedRollMinning } = useScaffoldContractWrite({
+    contractName: "RiggedRoll",
+    functionName: "riggedRoll",
+    value: ROLL_VALUE,
+    gasLimit: "100000",
+  });
+  
   // Handle riggedRoll success.
-
+  useEffect(() => {
+    if (riggedRollMinning) {
+      setDiceRollImage("ROLL");
+    } else if (riggedRollSuccessful) {
+      setDiceRolled(false);
+      setDiceRollImage(players[players.length - 1]?.roll);
+    }
+  }, [ players, riggedRollSuccessful]);
+  
   // Handle riggedRoll error.
+  useEffect(() => {
+    let timeoutId: NodeJS.Timeout;
+    if (riggedRollError) {
+      timeoutId = setTimeout(() => {
+        setDiceRolled(false);
+        setDiceRollImage("");
+      }, 2000); // delay for 2 seconds
+    }
+    return () => clearTimeout(timeoutId);
+  }, [riggedRollError]);
+
 
   // Read prize data
   const { data: prize } = useScaffoldContractRead({
@@ -130,10 +153,19 @@ const Home: NextPage = () => {
     setDiceRollImage("ROLL");
 
     try {
-      await writeAsync();
+      // await rollWrite();
+      await riggedRollWrite();
+      if (!riggedRollError || riggedRollSuccessful) {
+        setDiceRolled(false);
+        setDiceRollImage("");
+      } 
+
+
     } catch (err) {
       // Handle the error.
       console.error(err);
+      setDiceRolled(false);
+      setDiceRollImage("");
     }
   };
 
@@ -188,7 +220,7 @@ const Home: NextPage = () => {
                   .slice()
                   .reverse()
                   .map(({ winner, amount }, i) => (
-                    <li key={i} className="flex flex-row items-center py-2 tracking-widest text-sm">
+                    <li key={i} className="flex flex-row items-center py-2 tracking-wide text-sm">
                       <Address address={winner} />
                       &nbsp;Amt:&nbsp;
                       <button className="flex flex-row w-full" onClick={() => setShowEthValue(prev => !prev)}>
