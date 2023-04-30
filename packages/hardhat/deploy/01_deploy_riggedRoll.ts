@@ -21,7 +21,7 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
   */
 
   // The reason for all the commenting is that linting will always error if riggedRoll deploy script isnt fully implemented.
-  // Uncomment the below when working on riggedRoll.
+  // Uncomment the following lines when working on riggedRoll.
   // const { deployer } = await hre.getNamedAccounts();
   // const { deploy } = hre.deployments;
 
