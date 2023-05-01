@@ -90,7 +90,7 @@ const contracts = {
           ],
         },
         RiggedRoll: {
-          address: "0xfc586de765f89d6228667cB41bBf413FD34B8885",
+          address: "0xe4e70Ea7FF7341ef547529aEB633C6065bf4CB4E",
           abi: [
             {
               inputs: [
@@ -284,116 +284,6 @@ const contracts = {
               name: "rollTheDice",
               outputs: [],
               stateMutability: "payable",
-              type: "function",
-            },
-            {
-              stateMutability: "payable",
-              type: "receive",
-            },
-          ],
-        },
-        RiggedRoll: {
-          address: "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",
-          abi: [
-            {
-              inputs: [
-                {
-                  internalType: "address payable",
-                  name: "diceGameAddress",
-                  type: "address",
-                },
-              ],
-              stateMutability: "nonpayable",
-              type: "constructor",
-            },
-            {
-              anonymous: false,
-              inputs: [
-                {
-                  indexed: true,
-                  internalType: "address",
-                  name: "previousOwner",
-                  type: "address",
-                },
-                {
-                  indexed: true,
-                  internalType: "address",
-                  name: "newOwner",
-                  type: "address",
-                },
-              ],
-              name: "OwnershipTransferred",
-              type: "event",
-            },
-            {
-              inputs: [],
-              name: "diceGame",
-              outputs: [
-                {
-                  internalType: "contract DiceGame",
-                  name: "",
-                  type: "address",
-                },
-              ],
-              stateMutability: "view",
-              type: "function",
-            },
-            {
-              inputs: [],
-              name: "owner",
-              outputs: [
-                {
-                  internalType: "address",
-                  name: "",
-                  type: "address",
-                },
-              ],
-              stateMutability: "view",
-              type: "function",
-            },
-            {
-              inputs: [],
-              name: "renounceOwnership",
-              outputs: [],
-              stateMutability: "nonpayable",
-              type: "function",
-            },
-            {
-              inputs: [],
-              name: "riggedRoll",
-              outputs: [],
-              stateMutability: "payable",
-              type: "function",
-            },
-            {
-              inputs: [
-                {
-                  internalType: "address",
-                  name: "newOwner",
-                  type: "address",
-                },
-              ],
-              name: "transferOwnership",
-              outputs: [],
-              stateMutability: "nonpayable",
-              type: "function",
-            },
-            {
-              inputs: [
-                {
-                  internalType: "address",
-                  name: "addr",
-                  type: "address",
-                },
-                {
-                  internalType: "uint256",
-                  name: "amount",
-                  type: "uint256",
-                },
-              ],
-              name: "withdraw",
-              outputs: [],
-              stateMutability: "nonpayable",
               type: "function",
             },
             {

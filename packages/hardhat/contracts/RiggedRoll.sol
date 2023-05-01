@@ -24,7 +24,6 @@ contract RiggedRoll is Ownable {
 
     //Add riggedRoll() function to predict the randomness in the DiceGame contract and only roll when it's going to be a winner
     function riggedRoll() public payable {
-        require(msg.value >= 0.002 ether, "Insufficient ETH for roll.");
 
         bytes32 prevHash = blockhash(block.number - 1);
         uint256 nonce = diceGame.nonce();
@@ -34,7 +33,12 @@ contract RiggedRoll is Ownable {
         uint256 roll = uint256(hash) % 16;
         console.log("Roll: ", roll);
         
-        if (roll < 3) diceGame.rollTheDice{value: msg.value}();
+        if (roll < 3) {
+            (bool success, ) = address(diceGame).call{value: 0.002 ether}(abi.encodeWithSignature("rollTheDice()"));
+            require(success, "Roll failed");
+        } else {
+        revert("Not a winning number");
+    }
     }
 
     //Add receive() function so contract can receive Eth

@@ -122,7 +122,7 @@ const Home: NextPage = () => {
   // A function to help toggle between ETH value and dollar value.
   function valueDisplay(value: BigNumber) {
     const displayValue = showEthValue
-      ? value && formatEther(value)
+      ? value && Number(formatEther(value)).toFixed(5)
       : (value && Number(formatEther(value)) * ETHPrice)?.toFixed(2) || "0";
 
     return displayValue;
@@ -183,6 +183,7 @@ const Home: NextPage = () => {
       setDiceRollImage("");
     }
     setRigged(false);
+    setDiceRolled(false)
   };
 
   // Dice image manipulation.
@@ -251,7 +252,7 @@ const Home: NextPage = () => {
                       <Address address={winner} />
                       &nbsp;Amt:&nbsp;
                       <button className="flex flex-row w-full" onClick={() => setShowEthValue(prev => !prev)}>
-                        {showEthValue ? "⟠" : "💲"}&nbsp;{amount}
+                        { "⟠" }&nbsp;{Number(amount).toFixed(5)}
                       </button>
                     </li>
                   ))}
